@@ -78,12 +78,18 @@ transactional-analytics-api/
    cd merchant-analytic-api
    ```
 
-2. **Install dependencies:**
+2. **Activate Virtual Environment:**
+  ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
+
+3. **Install dependencies:**
    ```bash
    uv sync
    ```
 
-3. **Configure environment variables:**
+4. **Configure environment variables:**
    Create a `.env` file in the root directory:
    ```env
    DATABASE_URL=postgresql://<username>:<password>@localhost:5432/<database_name>
@@ -91,7 +97,7 @@ transactional-analytics-api/
    DATA_FOLDER_PATH=./data
    ```
 
-4. **Run database migrations:**
+5. **Run database migrations:**
    ```bash
    alembic upgrade head
    ```
