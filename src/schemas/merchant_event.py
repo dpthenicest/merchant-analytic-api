@@ -24,8 +24,8 @@ class MerchantEventCreate(BaseModel):
     # event_type - Type of activity (optional)
     event_type: Optional[str] = Field(default=None)
 
-    # amount - Transaction amount in NGN (0 for non-monetary, optional)
-    amount: Optional[Decimal] = Field(default=None)
+    # amount - Transaction amount in NGN (0 for non-monetary)
+    amount: Decimal = Field(default=Decimal("0.00"))
 
     # status - One of: SUCCESS, FAILED, PENDING (optional)
     status: Optional[Literal["SUCCESS", "FAILED",
@@ -41,6 +41,14 @@ class MerchantEventCreate(BaseModel):
     # merchant_tier - KYC tier: STARTER, VERIFIED, PREMIUM (optional)
     merchant_tier: Optional[Literal["STARTER",
                                     "VERIFIED", "PREMIUM"]] = Field(default=None)
+
+    @field_validator('product', 'status', 'channel', 'merchant_tier', mode='before')
+    @classmethod
+    def validate_literal_fields(cls, v):
+        """Convert invalid literal values to None"""
+        if v is None or (isinstance(v, str) and not v.strip()):
+            return None
+        return v if isinstance(v, str) else None
 
     @field_validator('merchant_id', mode='before')
     @classmethod
@@ -111,19 +119,24 @@ class MerchantEventCreate(BaseModel):
     @field_validator('amount', mode='before')
     @classmethod
     def parse_amount(cls, v):
-        """Handle decimal parsing, return None if invalid"""
+        """Handle decimal parsing, default to 0.00 if invalid or empty"""
         if v is None or (isinstance(v, str) and not v.strip()):
-            return None
+            return Decimal("0.00")
         try:
             if isinstance(v, str):
                 amount = Decimal(v.strip())
-                # Ensure amount is not negative
+                # Ensure amount is not negative, default to 0 if negative
                 if amount < 0:
-                    return None
+                    return Decimal("0.00")
                 return amount
-            return v
+            elif isinstance(v, (int, float)):
+                amount = Decimal(str(v))
+                if amount < 0:
+                    return Decimal("0.00")
+                return amount
+            return v if isinstance(v, Decimal) else Decimal("0.00")
         except (InvalidOperation, ValueError, TypeError):
-            return None
+            return Decimal("0.00")
 
 
 class MerchantEventResponse(MerchantEventCreate):

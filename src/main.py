@@ -13,6 +13,7 @@ from src.database.database import Base
 from src.models.merchant_event import MerchantEvent
 # Update this import to match your new function name
 from src.utils.csv_to_psql import seed_data_from_folder
+from src.routers.analytic_routes import analytic_router
 
 # Load environment variables
 load_dotenv()
@@ -76,19 +77,8 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-@app.get("/seed-data")
-def manual_seed_trigger():
-    """Manual endpoint to re-trigger folder scanning if needed."""
-    db = SessionLocal()
-    try:
-        data_folder = os.getenv("DATA_FOLDER_PATH", "./src/data")
-        seed_data_from_folder(db, data_folder)
-        return {"message": "Folder scan and seeding triggered."}
-    except Exception as e:
-        logger.error(f"Manual seed error: {e}")
-        return {"error": str(e)}
-    finally:
-        db.close()
+# Include routers
+app.include_router(analytic_router)
 
 if __name__ == "__main__":
     # Using the import string "main:app" allows for hot-reloading

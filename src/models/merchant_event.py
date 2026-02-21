@@ -31,8 +31,8 @@ class MerchantEvent(Base):
     product: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
     event_type: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
 
-    # Numeric is the standard for financial data (precision 15, scale 2) - nullable
-    amount: Mapped[Optional[Decimal]] = mapped_column(Numeric(15, 2), nullable=True, default=None)
+    # Decimal is the standard for financial data (precision 15, scale 2) - defaults to 0
+    amount: Mapped[Decimal] = mapped_column(Numeric(15, 2), nullable=False, default=Decimal("0.00"))
 
     # Status, Channel, and Tier as strings (can be further optimized with Enums) - nullable
     status: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
