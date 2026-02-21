@@ -1,5 +1,5 @@
 
-# Transactional Analytics API
+# Merchant Analytics API
 
 A high-performance REST API built with **FastAPI** and **PostgreSQL** designed to analyze merchant transaction data and provide actionable business intelligence through real-time analytics endpoints.
 
@@ -16,7 +16,7 @@ A high-performance REST API built with **FastAPI** and **PostgreSQL** designed t
 
 ## Project Overview
 
-The Transactional Analytics API processes merchant transaction data from CSV files and provides comprehensive analytics on merchant activity, product adoption, KYC conversion funnels, and transaction failure rates. The system automatically seeds data on startup and maintains data consistency through atomic database transactions.
+The Merchant Analytics API processes merchant transaction data from CSV files and provides comprehensive analytics on merchant activity, product adoption, KYC conversion funnels, and transaction failure rates. The system automatically seeds data on startup and maintains data consistency through atomic database transactions.
 
 **Technology Stack:**
 - **Backend Framework:** FastAPI
