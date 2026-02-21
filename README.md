@@ -39,7 +39,7 @@ The Transactional Analytics API processes merchant transaction data from CSV fil
 ### Project Structure
 
 ```
-transactional-analytics-api/
+merchant-analytic-api/
 ├── src/
 │   ├── main.py                    # FastAPI app initialization
 │   ├── database/

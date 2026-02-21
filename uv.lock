@@ -285,7 +285,7 @@ wheels = [
 ]
 
 [[package]]
-name = "transactional-analytics-api"
+name = "merchant-analytic-api"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

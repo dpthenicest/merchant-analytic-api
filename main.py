@@ -1,5 +1,5 @@
 def main():
-    print("Hello from transactional-analytics-api!")
+    print("Hello from merchant-analytic-api!")
 
 
 if __name__ == "__main__":
