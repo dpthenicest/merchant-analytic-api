@@ -78,16 +78,15 @@ transactional-analytics-api/
    cd merchant-analytic-api
    ```
 
-2. **Activate Virtual Environment:**
-  ```bash
-    python3 -m venv venv
-    source venv/bin/activate
-    ```
-
-3. **Install dependencies:**
+2. **Install dependencies:**
    ```bash
    uv sync
    ```
+
+3. **Activate Virtual Environment:**
+  ```bash
+    source .venv/bin/activate
+  ```
 
 4. **Configure environment variables:**
    Create a `.env` file in the root directory:
